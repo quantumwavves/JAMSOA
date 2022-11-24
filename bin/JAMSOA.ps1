@@ -1,5 +1,5 @@
 #JAMSOA v 1.0 by QuantumWavves
-$Folder = 'C:\Program Files (x86)\Microsoft Office\Office16'
+$Folder = 'C:\Program Files\Microsoft Office\Office16\'
 if (Test-Path -Path $Folder) {
     Set-Location 'C:\Program Files\Microsoft Office\Office16\'
 } else {
@@ -14,7 +14,7 @@ $TMSV = $TMSV.ToString() -replace ":", ""
 $MSOV = $TMSV.ToString() -replace ",", ""
 
 function AMSOVD {
-    echo $MSOV
+    Write-Output $MSOV
     if($MSOV -eq "Office21Office21ProPlus2021R_Grace"){MSOPP2021}
     if($MSOV -eq "Office19Office19ProPlus2019R_Grace"){MSOPP2019}
     if($MSOV -eq "Office16Office16ProPlusR_Grace"){MSOPP2016}
@@ -32,11 +32,13 @@ function MSOPP2021{
 function MSOPP2019{
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/quantumwavves/JAMSOA/master/bin/Office19.cmd" -OutFile "$env:temp\2019.cmd"
     cmd.exe /c "$env:temp\2019.cmd"
+    Get-ChildItem -Path "$env:temp" *.* -Recurse | Remove-Item -Force -Recurse
 }
 
 function MSOPP2016{
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/quantumwavves/JAMSOA/master/bin/Office16.cmd" -OutFile "$env:temp\2019.cmd"
     cmd.exe /c "$env:temp\2016.cmd"
+    Get-ChildItem -Path "$env:temp" *.* -Recurse | Remove-Item -Force -Recurse
 }
 
 AMSOVD
